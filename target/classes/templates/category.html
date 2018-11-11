@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headers :: head(title='Category')"></head>
+<body>
+<form th:action="@{/createNewCategory}" th:object="${newCategory}" method="POST">
+<label>
+    Category name:
+</label>
+    <input type="text" th:field="*{name}">
+    <input type="submit" value="Create">
+</form>
+<div th:if="${not #lists.isEmpty(categoryList)}" >
+    <div th:each =" category : ${categoryList}">
+        <a href="lists.html"
+           th:href="@{'/lists/' + ${category.name}}"
+           th:text="${category.name}">
+        </a>
+    </div>
+</div>
+</body>
+</html>
