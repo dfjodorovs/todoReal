@@ -3,19 +3,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/headers :: head(title='Category')"></head>
 <body>
-<form th:action="@{/createNewCategory}" th:object="${newCategory}" method="POST">
-<label>
-    Category name:
-</label>
-    <input type="text" th:field="*{name}">
-    <input type="submit" value="Create">
-</form>
-<div th:if="${not #lists.isEmpty(categoryList)}" >
-    <div th:each =" category : ${categoryList}">
-        <a href="lists.html"
-           th:href="@{'/lists/' + ${category.name}}"
-           th:text="${category.name}">
-        </a>
+<div id="wrapper" class="animate">
+    <div class="container-fluid">
+        <form class="form-horizontal" th:action="@{/createNewCategory}" th:object="${newCategory}" method="POST">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Add new category</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textinput">Category name</label>
+                    <div class="col-md-4">
+                        <input id="textinput" name="textinput" type="text"
+                               placeholder="Home tasks... , Work tasks..." class="form-control input-md"
+                               th:field="*{name}">
+                        <!--<span class="help-block">enter category name here</span>-->
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Create">
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+        <div class="row" th:if="${not #lists.isEmpty(categoryList)}">
+            <div class="col" th:each =" category : ${categoryList}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${category.name}">
+                            <a href="lists.html"
+                               th:href="@{'/lists/' + ${category.name}}"
+                               th:text="${category.name}">
+                            </a>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Bootstrap 4.0.0 Snippet</h6>
+                        <p class="card-text">You can also try different version of Bootstrap V4 side menu. Click below link to view all Bootstrap Menu versions.</p>
+                        <a href="lists.html"
+                           th:href="@{'/lists/' + ${category.name}}"
+                           th:text="${category.name}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>

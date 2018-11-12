@@ -14,7 +14,7 @@ public class CategoryList {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<TodoItem> todoItems= new ArrayList<>();
+    private List<TodoItem> todoItems = new ArrayList<>();
 
 
     public long getId() {
@@ -33,11 +33,12 @@ public class CategoryList {
         this.name = name;
     }
 
-    public List<TodoItem> getCategoryLists() {
+    public List<TodoItem> getTodoItems() {
         return todoItems;
     }
 
-    public void setCategoryLists(List<TodoItem> todoItems) {
+    public void setTodoItems(List<TodoItem> todoItems) {
         this.todoItems = todoItems;
     }
 }
+

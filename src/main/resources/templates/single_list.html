@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/headers :: head(title='ToDo List')"></head>
+<body>
+<div id="wrapper" class="animate">
+<h3>Category:
+    <a href="category.html"
+       th:href="@{'/category/'}"
+       th:text="${categoryName}">
+    </a>
+</h3>
+<h4>List:
+    <a href="lists.html"
+                             th:href="@{'/lists/' + ${categoryName}}"
+                             th:text="${listName}">
+    </a>
+</h4>
+<form class="form-horizontal" th:action="@{'/createTodoItem/' + ${currentCategory} + '/' + ${listName}}" th:object="${newTodoItem}" method="POST">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Add new Task</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <div class="col-md-4">
+                <input id="textinput" name="textinput" type="text"
+                       placeholder="do some stuff..." class="form-control input-md"
+                       th:field="${newTodoItem.text}">
+                <!--<span class="help-block">enter list name here</span>-->
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="submit" class="btn btn-primary" value="Create">
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+<br/>
+<div th:if="${not #lists.isEmpty(todoItemDAO.todoItems)}" >
+    <form  class="form-horizontal" th:action="@{'/updateTodoItems/' + ${currentCategory} + '/' + ${listName}}" th:object="${todoItemDAO}" method="POST">
+        <fieldset class="row" th:each =" tItem, stat : ${todoItemDAO.todoItems}">
+            <div class="form-group">
+                <div class="col-md-4">
+                    <div class="row">
+                        <input class="form-control input-md col-md-1" type="checkbox" th:field="${todoItemDAO.todoItems[__${stat.index}__].done}" />
+                        <input class="form-control input-md col-md-3" type="text" th:field="${todoItemDAO.todoItems[__${stat.index}__].text}" />
+                        <span th:if="${todoItemDAO.todoItems[__${stat.index}__].done}" class="label label-success">DONE!</span>
+
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <input  type="submit" class="btn btn-primary" value="update">
+    </form>
+</div>
+</div>
+</body>
+</html>
